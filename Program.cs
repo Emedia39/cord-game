@@ -16,8 +16,6 @@ namespace Card_Game
             //文字列inputの数値への変換を試行用
             int[] card = new int[4];
 
-
-
             Console.WriteLine("+------------------+");
             Console.WriteLine("|ポーカードゲーム！|");
             Console.WriteLine("+------------------+");
@@ -47,7 +45,7 @@ namespace Card_Game
             Console.WriteLine("*----------------------------------*");
             for (int number = 0; number < 4; number++)
             {
-                Console.WriteLine("{0}人目の番号は…{1}", number + 1, card[number]);
+                Console.WriteLine("{0}番目のカードの数は…{1}", number + 1, card[number]);
 
             }
             Console.Write("*----------------------------------*\n");
@@ -60,47 +58,104 @@ namespace Card_Game
             方法2.1～4の数を「number」に当てはめ、複数同じ数があったら、一番多い数をペア数にする←こっち
              */
 
-            int[] serectCount = new int[4];//重複数カウント用配列
+            int[] selectCount = new int[4];//重複数カウント用配列
             for (int number = 0; number < 4; number++)
             {
-                serectCount[number] = 0;//初期値
+                selectCount[number] = 0;//初期値
             }
 
             for (int number = 0; number < 4; number++)
             {
-                if(card[number] == 1)
+                if(card[number] == 1)//数字が1のカードの数
                 {
-                    serectCount[0]++;
+                    selectCount[0]++;//をカウントする
                 }
                 if (card[number] == 2)
                 {
-                    serectCount[1]++;
+                    selectCount[1]++;
                 }
                 if (card[number] == 3)
                 {
-                    serectCount[2]++;
+                    selectCount[2]++;
                 }
                 if (card[number] == 4)
                 {
-                    serectCount[3]++;
+                    selectCount[3]++;
                 }
 
                 /*if (card[number] == number+1)//失敗
                 {
-                    serectCount[number] += 1;
+                    selectCount[number] += 1;
                 }*/
 
             }
 
-            Console.WriteLine(serectCount[0]);
-            Console.WriteLine(serectCount[1]);
-            Console.WriteLine(serectCount[2]);
-            Console.WriteLine(serectCount[3]);
+            Console.WriteLine("*----------------------------------*");
+            for (int number = 0; number < 4; number++)
+            {
+                Console.WriteLine("{0}が数字のカードの数は…{1}", number + 1, selectCount[number]);
+
+            }
+            Console.Write("*----------------------------------*\n");
 
             //キー入力待ち
             Console.ReadLine();
 
+            int select = 0;
+            int no2Count = 0;
 
+            for(int number = 0; number < 4; number++)//同じカードの枚数が
+            {
+                if(selectCount[number] == 4)//4枚ある場合
+                {
+                    select = selectCount[number];//フォーペアにする
+                }
+                if (selectCount[number] == 3)//4枚ある場合
+                {
+                    select = selectCount[number];//フォーペアにする
+                }
+                if (selectCount[number] == 2)
+                {
+                    no2Count++;
+
+                }
+
+            }
+
+            if(no2Count == 2)
+            {
+                select = 2;
+
+            }
+            else if(no2Count == 1)
+            {
+                select = 1;
+            }
+
+            switch (select)//選択肢したもの計算処理
+            {       
+                case 4:
+                    Console.WriteLine("「フォーカード！」\n");
+                    break;
+
+                case 3:
+                    Console.WriteLine("「スリーカード！」\n");
+                    break;
+
+                case 2:
+                    Console.WriteLine("「ツーペア！」\n");
+                    break;
+
+                case 1:
+                    Console.WriteLine("「ワンペア！」\n");
+                    break;
+
+                default:
+                    Console.WriteLine("「ノーペア！」\n");
+                    break;
+            }
+            //キー入力待ち
+            Console.ReadLine();
 
         }
     }
